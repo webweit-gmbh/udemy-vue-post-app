@@ -1,0 +1,13 @@
+<script setup lang="ts">
+
+</script>
+
+<template>  
+  <nav class="is-primary panel">
+    <span class="panel-tabs">
+        <a>Today</a>
+        <a>This week</a>
+        <a>This month</a>
+    </span>
+  </nav>
+</template>
