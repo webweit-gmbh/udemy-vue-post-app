@@ -1,63 +1,54 @@
 <script setup lang="ts">
-import { DateTime } from "luxon";
-import { ref, computed } from "vue";
+import { DateTime } from 'luxon';
+import { ref, computed } from 'vue';
 
-import { Post, today, thisWeek, thisMonth } from '../posts';
+import { TimelinePost, today, thisWeek, thisMonth } from '../posts';
+import TimelineItem from './TimelineItem.vue';
 
-const periods = ["Today", "This Week", "This Month"] as const;
+const periods = ['Today', 'This Week', 'This Month'] as const;
 type Period = typeof periods[number];
 
-const selectedPreriod = ref<Period>("Today");
+const selectedPreriod = ref<Period>('Today');
 
 const selectPeriod = (period: Period) => {
-  selectedPreriod.value = period;
-}
+    selectedPreriod.value = period;
+};
 
-const posts = computed(() => {
-  return [today, thisWeek, thisMonth]
-    .map((post) => ({
-      ...post,
-      created: DateTime.fromISO(post.created)
-    }))
-    .filter((post) => {
-      if (selectedPreriod.value === "Today") {
-        return post.created >= DateTime.now().minus({ day: 1 });
-      }
+const posts = computed<TimelinePost[]>(() => {
+    return [today, thisWeek, thisMonth]
+        .map((post) => ({
+            ...post,
+            created: DateTime.fromISO(post.created),
+        }))
+        .filter((post) => {
+            if (selectedPreriod.value === 'Today') {
+                return post.created >= DateTime.now().minus({ day: 1 });
+            }
 
-      if (selectedPreriod.value === "This Week") {
-        return post.created >= DateTime.now().minus({ week: 1 });
-      }
+            if (selectedPreriod.value === 'This Week') {
+                return post.created >= DateTime.now().minus({ week: 1 });
+            }
 
-      return true;
-    });
+            return true;
+        });
 });
 </script>
 
 <template>
-  <pre>{{ periods }}</pre>
-  {{ selectedPreriod }}
-  <nav class="is-primary panel">
-    <span class="panel-tabs">
-      <a 
-        v-for="period of periods"
-        :key="period"
-        :class="{ 'is-active': period === selectedPreriod }"
-        @click="selectPeriod(period)"
-      >
-        {{ period }}
-      </a>
-    </span>
+    <pre>{{ periods }}</pre>
+    {{ selectedPreriod }}
+    <nav class="is-primary panel">
+        <span class="panel-tabs">
+            <a
+                v-for="period of periods"
+                :key="period"
+                :class="{ 'is-active': period === selectedPreriod }"
+                @click="selectPeriod(period)"
+            >
+                {{ period }}
+            </a>
+        </span>
 
-    <div
-      v-for="post of posts"
-      :key="post.id"
-      class="panel-block"
-    >
-      <a href="#">{{ post.title }}</a>
-      &nbsp;
-      <span>
-        {{ post.created.toFormat('y MMMM d, TT') }}
-      </span>
-    </div>
-  </nav>
+        <TimelineItem v-for="post of posts" :key="post.id" :post="post" />
+    </nav>
 </template>
