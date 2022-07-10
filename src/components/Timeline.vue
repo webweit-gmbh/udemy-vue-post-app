@@ -3,7 +3,10 @@ import { DateTime } from 'luxon';
 import { ref, computed } from 'vue';
 
 import { TimelinePost, today, thisWeek, thisMonth } from '../posts';
+import { usePosts } from '../stores/posts';
 import TimelineItem from './TimelineItem.vue';
+
+const postsStore = usePosts();
 
 const periods = ['Today', 'This Week', 'This Month'] as const;
 type Period = typeof periods[number];
@@ -35,6 +38,10 @@ const posts = computed<TimelinePost[]>(() => {
 </script>
 
 <template>
+    <div style="padding: 10px; background-color: yellow">
+        {{ postsStore.getState().foo }}
+        <button @click="postsStore.updateFoo('dupa')">set dupa</button>
+    </div>
     <pre>{{ periods }}</pre>
     {{ selectedPreriod }}
     <nav class="is-primary panel">
