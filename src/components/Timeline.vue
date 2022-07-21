@@ -39,7 +39,9 @@ const posts = computed<TimelinePost[]>(() => {
 
 <template>
     <div style="padding: 10px; background-color: yellow">
-        {{ postsStore.getState().foo }}
+        <pre>{{ postsStore.$state }}</pre>
+
+        {{ postsStore.foo }}
         <button @click="postsStore.updateFoo('dupa')">set dupa</button>
     </div>
     <pre>{{ periods }}</pre>
