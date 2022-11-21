@@ -1,63 +1,43 @@
 <script setup lang="ts">
-import { DateTime } from 'luxon';
-import { ref, computed } from 'vue';
-
-import { TimelinePost, today, thisWeek, thisMonth } from '../posts';
-import { usePosts } from '../stores/posts';
 import TimelineItem from './TimelineItem.vue';
 
+import { usePosts } from '../stores/posts';
+import { periods } from '../constans';
+
 const postsStore = usePosts();
-
-const periods = ['Today', 'This Week', 'This Month'] as const;
-type Period = typeof periods[number];
-
-const selectedPreriod = ref<Period>('Today');
-
-const selectPeriod = (period: Period) => {
-    selectedPreriod.value = period;
-};
-
-const posts = computed<TimelinePost[]>(() => {
-    return [today, thisWeek, thisMonth]
-        .map((post) => ({
-            ...post,
-            created: DateTime.fromISO(post.created),
-        }))
-        .filter((post) => {
-            if (selectedPreriod.value === 'Today') {
-                return post.created >= DateTime.now().minus({ day: 1 });
-            }
-
-            if (selectedPreriod.value === 'This Week') {
-                return post.created >= DateTime.now().minus({ week: 1 });
-            }
-
-            return true;
-        });
-});
 </script>
 
 <template>
     <div style="padding: 10px; background-color: yellow">
         <pre>{{ postsStore.$state }}</pre>
+        <pre>{{ postsStore.foo }}</pre>
 
-        {{ postsStore.foo }}
-        <button @click="postsStore.updateFoo('dupa')">set dupa</button>
+        <button @click="postsStore.updateFoo('dupa')">set dupaaaaaaa!!!!!!!!</button>
+        <button @click="postsStore.foo = 'dupa via direct asignment'">set dupaaaaaaa DIRECT!!!!!!!!</button>
     </div>
+
+    <h2>Periods</h2>
     <pre>{{ periods }}</pre>
-    {{ selectedPreriod }}
+
+    <h2>SelectedPeriod</h2>
+    <pre>{{ postsStore.selectedPeriod }}</pre>
+
     <nav class="is-primary panel">
         <span class="panel-tabs">
             <a
                 v-for="period of periods"
                 :key="period"
-                :class="{ 'is-active': period === selectedPreriod }"
-                @click="selectPeriod(period)"
+                :class="{ 'is-active': period === postsStore.selectedPeriod }"
+                @click="postsStore.setSelectedPeriod(period)"
             >
                 {{ period }}
             </a>
         </span>
 
-        <TimelineItem v-for="post of posts" :key="post.id" :post="post" />
+        <TimelineItem
+            v-for="post of postsStore.filteredPosts"
+            :key="post.id"
+            :post="post"
+        />
     </nav>
 </template>
