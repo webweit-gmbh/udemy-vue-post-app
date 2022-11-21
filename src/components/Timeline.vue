@@ -10,14 +10,12 @@ await postsStore.fetchPosts();
 </script>
 
 <template>
-    <div style="padding: 10px; background-color: yellow">
+    <div style="padding: 10px; background-color: yellow; font-size: 11px; line-height: 1.05;">
         <pre>{{ postsStore.$state }}</pre>
         <pre>{{ postsStore.foo }}</pre>
-
-        <button @click="postsStore.updateFoo('dupa')">set dupaaaaaaa!!!!!!!!</button>
-        <button @click="postsStore.foo = 'dupa via direct asignment'">set dupaaaaaaa DIRECT!!!!!!!!</button>
+        <button @click="postsStore.updateFoo('via method')">assignment via method</button>
+        <button @click="postsStore.foo = 'direct assignment'">assignment via property (direct)</button>
     </div>
-
 
     <nav class="is-primary panel">
         <span class="panel-tabs">
