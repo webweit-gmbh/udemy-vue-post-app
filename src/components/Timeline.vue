@@ -5,6 +5,8 @@ import { usePosts } from '../stores/posts';
 import { periods } from '../constans';
 
 const postsStore = usePosts();
+
+postsStore.fetchPosts();
 </script>
 
 <template>
@@ -16,11 +18,6 @@ const postsStore = usePosts();
         <button @click="postsStore.foo = 'dupa via direct asignment'">set dupaaaaaaa DIRECT!!!!!!!!</button>
     </div>
 
-    <h2>Periods</h2>
-    <pre>{{ periods }}</pre>
-
-    <h2>SelectedPeriod</h2>
-    <pre>{{ postsStore.selectedPeriod }}</pre>
 
     <nav class="is-primary panel">
         <span class="panel-tabs">
