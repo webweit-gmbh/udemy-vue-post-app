@@ -2,7 +2,7 @@
 import { defineStore } from 'pinia';
 import { DateTime } from 'luxon';
 
-import { Post, today, thisWeek, thisMonth, TimelinePost } from '../posts';
+import { Post, TimelinePost } from '../posts';
 import { Period } from '../constans';
 
 export interface PostsState {
@@ -48,6 +48,22 @@ export const usePosts = defineStore("posts", {
 
             this.ids = ids;
             this.all = all;
+        },
+
+        async createPost(timelinePost: TimelinePost) {
+            const post: Post = { ...timelinePost, created: timelinePost.created.toISO() };
+            const body = JSON.stringify(post);
+
+            return window.fetch(
+                "http://localhost:8000/posts",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body
+                }
+            );
         }
     },
 
