@@ -5,11 +5,11 @@ import highlightjs from 'highlight.js';
 import debounce from 'lodash/debounce';
 import { useRouter } from 'vue-router';
 
-import { TimelinePost } from '../posts';
+import { Post, TimelinePost } from '../posts';
 import { usePosts } from '../stores/posts';
 
 const props = defineProps<{
-    post: TimelinePost
+    post: TimelinePost | Post // TODO types will be fixed later
 }>();
 
 const postsStore = usePosts();

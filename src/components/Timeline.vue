@@ -10,7 +10,8 @@ await postsStore.fetchPosts();
 </script>
 
 <template>
-    <div style="padding: 10px; background-color: yellow; font-size: 11px; line-height: 1.05;">
+    <!-- TODO remove it -->
+    <div v-if='false' style="padding: 10px; background-color: yellow; font-size: 11px; line-height: 1.05;">
         <pre>{{ postsStore.$state }}</pre>
         <pre>{{ postsStore.foo }}</pre>
         <button @click="postsStore.updateFoo('via method')">assignment via method</button>

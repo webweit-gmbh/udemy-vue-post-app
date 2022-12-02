@@ -15,10 +15,5 @@ const post: TimelinePost = {
 </script>
 
 <template>
-    New Post
-    <pre>
-        {{ post }}
-    </pre>
-
     <PostWriter :post="post" />
 </template>

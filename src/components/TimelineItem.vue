@@ -7,12 +7,13 @@ defineProps<{
 </script>
 
 <template>
-    <div
+    <RouterLink
+        :to="`/posts/${post.id}`"
         class="panel-block is-flex is-flex-direction-column is-align-items-flex-start"
     >
-        <a href="#">{{ post.title }}</a>
-        <span>
+        <a>{{ post.title }}</a>
+        <div>
             {{ post.created.toFormat('y MMMM d, TT') }}
-        </span>
-    </div>
+        </div>
+    </RouterLink>
 </template>
