@@ -1,7 +1,7 @@
 import { ref, shallowRef } from 'vue';
 
-import SignUpForm from '../components/SignUpForm.vue';
-import HelloWorld from '../components/HelloWorld.vue';
+import RegisterForm from '../components/RegisterForm.vue';
+import LoginForm from '../components/LoginForm.vue';
 
 const show = ref(false);
 const component = shallowRef(); // PERFORMANCE ALERT! We need shallowRef when making component reactive!
@@ -15,9 +15,9 @@ export const useModal = () => {
 
             switch (type) {
                 case 'login':
-                    return component.value = HelloWorld;
+                    return component.value = LoginForm;
                 case 'register':
-                    return component.value = SignUpForm;
+                    return component.value = RegisterForm;
             }
         },
         hideModal: () => (show.value = false)

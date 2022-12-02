@@ -4,11 +4,14 @@ import { computed, ref } from 'vue';
 import { NewUser } from '../users';
 import FormInput from './FormInput.vue';
 import { length, required, validate } from '../validation';
-import { useUsers } from '../stores/users';
-import { useModal } from '../composables/modal';
 
-const usersStore = useUsers();
-const modal = useModal();
+defineProps<{
+    error?: string
+}>();
+
+const emit = defineEmits<{
+    (event: 'submit', payload: NewUser): void
+}>();
 
 const username = ref('');
 const usernameStatus = computed(() => {
@@ -35,12 +38,10 @@ const handleSubmit = async (event: Event) => {
     };
 
     try {
-        await usersStore.createUser(newUser);
+        emit('submit', newUser);
     } catch (e) {
 
     }
-
-    modal.hideModal();
 }
 
 </script>
@@ -49,6 +50,10 @@ const handleSubmit = async (event: Event) => {
     <form class="form" @submit.prevent="handleSubmit">
         <FormInput type="text" name="Username" v-model="username" :status="usernameStatus" />
         <FormInput type="password" name="Password" v-model="password" :status="passwordStatus" />
+
+        <div v-if="error" class="is-danger help">
+            {{ error }}
+        </div>
 
         <button type="submit" class="button" :disabled="isInvalid">Submit</button>
     </form>
