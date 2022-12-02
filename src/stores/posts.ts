@@ -50,8 +50,7 @@ export const usePosts = defineStore("posts", {
             this.all = all;
         },
 
-        async createPost(timelinePost: TimelinePost) {
-            const post: Post = { ...timelinePost, created: timelinePost.created.toISO() };
+        async createPost(post: Post) {
             const body = JSON.stringify(post);
 
             return window.fetch(

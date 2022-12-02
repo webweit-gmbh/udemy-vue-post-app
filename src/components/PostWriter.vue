@@ -7,6 +7,7 @@ import { useRouter } from 'vue-router';
 
 import { Post, TimelinePost } from '../posts';
 import { usePosts } from '../stores/posts';
+import { useUsers } from '../stores/users';
 
 const props = defineProps<{
     post: TimelinePost | Post // TODO types will be fixed later
@@ -14,6 +15,8 @@ const props = defineProps<{
 
 const postsStore = usePosts();
 const router = useRouter();
+const usersStore = useUsers();
+
 const title = ref(props.post.title);
 const content = ref(props.post.markdown);
 const html = ref('');
@@ -66,15 +69,21 @@ const handleInput = () => {
 }
 
 const handleClick = async () => {
-    const newPost: TimelinePost = {
+    if (!usersStore.currentUserId) {
+        throw new Error('User was not found');
+    }
+
+    const newPost: Post = {
         ...props.post,
+        created: typeof props.post.created === 'string' ? props.post.created : props.post.created.toISO(),
         title: title.value,
+        userId: usersStore.currentUserId,
         markdown: content.value,
         html: html.value
     }
 
     await postsStore.createPost(newPost);
-    router.push('/');
+    await router.push('/');
 }
 
 /*
