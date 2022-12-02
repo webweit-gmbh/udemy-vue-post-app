@@ -38,9 +38,3 @@ export const validate = (value: string, rules: Rule[]): Status => {
         valid: true
     }
 }
-
-console.log(
-    validate('a', [length({ min: 5, max: 10 })]),
-    validate('aaaaaaaaaaa', [length({ min: 5, max: 10 })]),
-    validate('1234567', [length({ min: 5, max: 10 })]),
-);
