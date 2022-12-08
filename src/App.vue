@@ -31,8 +31,38 @@ const modalStyle = computed(() => {
 
     <div class="section">
         <div class="container">
-            <Navbar />
-            <RouterView />
+
+            <h1>
+                <RouterLink to="/">
+                    ✍ POSTERMAN app
+                </RouterLink>
+            </h1>
+            <h5>
+                Vue JS 3, script setup, vite, Composition API, Pinia, JWT tokens, TypeScript
+            </h5>
+
+            <div class="pb-5">
+                <Navbar />
+                <RouterView />
+            </div>
+
+            <hr>
+            <div>
+                <p>
+                    Source code:
+                    <br/>
+                    <a href="https://github.com/webweit-gmbh/udemy-vue-post-app" target="_blank">
+                        https://github.com/webweit-gmbh/udemy-vue-post-app
+                    </a>
+                </p>
+                <p>
+                    Udemy videos about this app:
+                    <br/>
+                    <a href="https://www.udemy.com/course/vuejs-3-the-composition-api/" target="_blank">
+                        https://www.udemy.com/course/vuejs-3-the-composition-api/
+                    </a>
+                </p>
+            </div>
         </div>
     </div>
 </template>
