@@ -6,6 +6,7 @@ import jsonwebtoken from 'jsonwebtoken';
 
 import { Post, thisMonth, thisWeek, today } from '../posts';
 import { NewUser, User } from '../users';
+import { readPosts } from "./posts";
 
 const delay = async (timeout = 500) => {
     return new Promise<void>(res => setTimeout(res, timeout));
@@ -100,6 +101,13 @@ app.post<{}, {}, NewUser>("/users", async (req, res) => {
     res.json(userWithoutPassword);
 });
 
-app.listen(8000, () => {
-    console.log('Listening on port 8000');
-});
+async function start() {
+    const demoPosts = await readPosts();
+    allPosts.push(...demoPosts);
+
+    app.listen(8000, () => {
+        console.log("Listening on port 8000");
+    });
+}
+
+start();
