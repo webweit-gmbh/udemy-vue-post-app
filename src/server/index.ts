@@ -77,6 +77,19 @@ app.post<{}, {}, Post>("/posts", async (req, res) => {
     res.json(post);
 });
 
+app.put<{}, {}, Post>("/posts", async (req, res) => {
+    const index = allPosts.findIndex(post => post.id === req.body.id);
+
+    if (index === -1) {
+        throw new Error(`Post with id ${req.body.id} was not found`);
+    }
+
+    const existingPost = allPosts[index];
+
+    allPosts[index] = { ...existingPost, ...req.body }
+    res.json(allPosts);
+});
+
 app.post<{}, {}, NewUser>("/users", async (req, res) => {
     const user = { ...req.body, id: (Math.random() * 100000).toFixed() };
     const { password, ...userWithoutPassword } = user;

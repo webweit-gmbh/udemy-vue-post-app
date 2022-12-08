@@ -3,18 +3,18 @@ import { ref, onMounted, watch, watchEffect } from "vue";
 import { marked } from 'marked';
 import highlightjs from 'highlight.js';
 import debounce from 'lodash/debounce';
-import { useRouter } from 'vue-router';
 
 import { Post, TimelinePost } from '../posts';
-import { usePosts } from '../stores/posts';
 import { useUsers } from '../stores/users';
 
 const props = defineProps<{
     post: TimelinePost | Post // TODO types will be fixed later
 }>();
 
-const postsStore = usePosts();
-const router = useRouter();
+const emit = defineEmits<{
+    (event: 'submit', post: Post): void
+}>();
+
 const usersStore = useUsers();
 
 const title = ref(props.post.title);
@@ -81,9 +81,7 @@ const handleClick = async () => {
         markdown: content.value,
         html: html.value
     }
-
-    await postsStore.createPost(newPost);
-    await router.push('/');
+    emit('submit', newPost);
 }
 
 /*
@@ -95,32 +93,34 @@ const handleClick = async () => {
 </script>
 
 <template>
-    <div class="columns">
-        <div class="column">
-            <div class="field">
-                <div class="label">Post title</div>
-                <input type="text" class="input" v-model="title" />
+    <div>
+        <div class="columns">
+            <div class="column">
+                <div class="field">
+                    <div class="label">Post title</div>
+                    <input type="text" class="input" v-model="title" />
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="columns">
-        <div class="column">
-            <div contenteditable ref="contentEditable" @input="handleInput" />
+        <div class="columns">
+            <div class="column">
+                <div contenteditable ref="contentEditable" @input="handleInput" />
+            </div>
+            <div class="column">
+                <div v-html="html"></div>
+            </div>
         </div>
-        <div class="column">
-            <div v-html="html"></div>
-        </div>
-    </div>
 
-    <div class="columns">
-        <div class="column">
-            <button
-                class="button is-primary is-pulled-right"
-                @click="handleClick"
-            >
-                Save post
-            </button>
+        <div class="columns">
+            <div class="column">
+                <button
+                    class="button is-primary is-pulled-right"
+                    @click="handleClick"
+                >
+                    Save post
+                </button>
+            </div>
         </div>
     </div>
 </template>
