@@ -6,7 +6,7 @@ This app is the result of this Udemy course:
 Generic webweit space for Vue stuff:
 [https://webweit.atlassian.net/wiki/spaces/wwCircles/pages/3779526679/Vue+trainings](https://webweit.atlassian.net/wiki/spaces/wwCircles/pages/3779526679/Vue+trainings)
 
-Live app here [54.37.233.139](54.37.233.139) (contact **Rob** if app or server is down)
+Live app here [http://54.37.233.139](http://54.37.233.139) (contact **Rob** if app or server is down)
 
 [![Demo](doc/posterman-app.gif)](doc/posterman-app.gif)
 
