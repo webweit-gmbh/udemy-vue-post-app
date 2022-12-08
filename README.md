@@ -1,16 +1,57 @@
-# Vue 3 + TypeScript + Vite
+# Webweit POSTERMAN app
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This app is the result of this Udemy course:
+[https://www.udemy.com/course/vuejs-3-the-composition-api/](https://www.udemy.com/course/vuejs-3-the-composition-api/)
 
-## Recommended IDE Setup
+Generic webweit space for Vue stuff:
+[https://webweit.atlassian.net/wiki/spaces/wwCircles/pages/3779526679/Vue+trainings](https://webweit.atlassian.net/wiki/spaces/wwCircles/pages/3779526679/Vue+trainings)
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+Live app here [54.37.233.139](54.37.233.139) (contact **Rob** if app or server is down)
 
-## Type Support For `.vue` Imports in TS
+[![Demo](doc/posterman-app.gif)](doc/posterman-app.gif)
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+Original readme below:
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+---
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+## Vue.js: The Composition API (v3)
+
+Welcome to the third recording of my Vue.js course! Get it here [on Udemy](https://www.udemy.com/course/vuejs-3-the-composition-api/?referralCode=0C911BD2BD6C57007F36).
+
+This is a information dense course where we build a full blogging application, including a real back-end with authentication and authorization. We go deep into Vue's reactivity system, and create some complex components.
+
+## Content
+
+### Vue.js
+- `<script setup>`
+- Vite + ES modules
+- Vuex -> Pinia (official state management solution)
+- Composables
+- Reusable components
+
+### General Skills
+- Design Patterns, modular code
+- TypeScript for type safety
+- *real* authentication and authorization using jsonwebtoken (JWT)
+- Basic server with Node.js + Express
+
+### Bonus!
+- Deploy to production
+- Testing module (coming soon)
+
+## Useful Links and Snippets
+
+Bulma: `@import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";`
+
+Modal
+
+```html
+<div class="modal" style="display: block; color: white;">
+  <div class="modal-background">
+    <div class="modal-content">
+      <div id="modal"></div>
+    </div>
+  </div>
+  <button class="modal-close is-large"></button>
+</div>
+```
